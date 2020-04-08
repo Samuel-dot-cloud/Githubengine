@@ -12,7 +12,7 @@ export class GithubRequestService {
   userRepository: Repository[] = [];
 
  url = 'https://api.github.com/users';
-//  token = '?access_token=1ac9c5cedbc70ab2c91351e8559309c5c921ae50';
+
 
 
   constructor(private http: HttpClient) { }
