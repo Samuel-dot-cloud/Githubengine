@@ -12,5 +12,56 @@ export class GithubRequestService {
   userRepository: Repository[] = [];
 
  url = 'https://api.github.com/users';
-  constructor() { }
+ token = '?access_token=1ac9c5cedbc70ab2c91351e8559309c5c921ae50';
+
+
+  constructor(private http: HttpClient) { }
+
+  userSearch(userName: string) {
+    // tslint:disable-next-line:class-name
+    interface data {
+      name: string;
+      avatar_url: string;
+      followers_url: number;
+      following_url: number;
+      bio: string;
+      login: string;
+
+    }
+    const promise =  new Promise ((resolve, reject) => {
+      this.userProfile = [];
+      this.http.get<data>(this.url + userName + this.token).toPromise().then(
+        (result) => {
+          console.log(result);
+          this.userProfile.push();
+          resolve();
+        },
+        (error) => {
+          reject();
+        });
+    });
+    return promise;
+  }
+  myRepo(userName: string) {
+    // tslint:disable-next-line:class-name
+    interface repoData {
+      name: string;
+      html_url: string;
+      description: string;
+      language: string;
+    }
+    const promise = new Promise ((resolve, reject) => {
+      this.userRepository = [];
+      this.http.get<repoData>(this.url + userName + '/repos?' + this.token).toPromise().then(
+        (result) => {
+          this.userRepository.push(result);
+          resolve();
+        },
+        (error) => {
+          reject();
+        });
+    });
+    return promise;
 }
+}
+
